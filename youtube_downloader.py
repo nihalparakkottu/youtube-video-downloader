@@ -6,9 +6,6 @@ except ModuleNotFoundError:
     os.system('pip install yt-dlp')
     import yt_dlp
 
-from google.colab import files
-import os
-
 # Prompt user for the YouTube video URL
 video_url = input("Enter the YouTube video URL: ")
 
@@ -21,12 +18,6 @@ download_options = {
 
 # Download the video
 with yt_dlp.YoutubeDL(download_options) as ydl:
-    info = ydl.extract_info(video_url, download=True)
-    filename = ydl.prepare_filename(info)
+    ydl.download([video_url])
 
-# Download the file to your system
-if os.path.exists(filename):
-    files.download(filename)
-    print(f"Downloaded {filename} to your local system.")
-else:
-    print("File not found.")
+print("Download complete!")
